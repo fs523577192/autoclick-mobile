@@ -58,7 +58,7 @@ function swipe {
     .\adb shell input swipe 536 1592 543 1400 1000
 }
 # for ($private:j = 0; $private:j -lt 3; $private:j += 1)
-for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
+for ($private:i = 0; $private:i -lt 6; $private:i += 1) {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
     $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_view1.png 807 240 936 1308 | findstr Matched

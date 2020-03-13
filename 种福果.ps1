@@ -65,7 +65,7 @@ if ( "$private:result" -ne "" ) {
     $private:x = [int]$private:result[1] + 56
     $private:y = [int]$private:result[2] + 56
     .\adb shell input tap $private:x $private:y
-    for ($private:i = 15; $private:i -gt 0; $private:i -= 1) {
+    for ($private:i = 10; $private:i -gt 0; $private:i -= 1) {
         .\adb shell input tap 540 1676
         echo 浇水
         Start-Sleep -Seconds 2

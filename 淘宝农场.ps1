@@ -9,7 +9,7 @@ Start-Sleep -Seconds 8
 echo 我的淘宝
 Start-Sleep -Seconds 5
 
-function getSumShine() {
+function getSunShine() {
     .\adb shell input tap 505 547
     Start-Sleep -Milliseconds 500
     .\adb shell input tap 321 635
@@ -27,17 +27,7 @@ function getSumShine() {
     echo 收阳光
 }
 
-.\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-.\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\taobao_farm.png 600 1106 | findstr Matched
-if ( "$private:result" -ne "" ) {
-    $private:result = "$private:result".Split(" ")
-    $private:x = [int]$private:result[1] + 60
-    $private:y = [int]$private:result[2] + 60
-    .\adb shell input tap $private:x $private:y
-    echo 天猫农场
-    Start-Sleep -Seconds 10
-
+function doInFarm {
     .\adb shell input tap 537 1525
     echo 立刻去收
     Start-Sleep -Milliseconds 500
@@ -59,11 +49,10 @@ if ( "$private:result" -ne "" ) {
     .\adb shell input tap 776 821
     Start-Sleep -Milliseconds 500
     .\adb shell input tap 539 697
-    Start-Sleep -Milliseconds 500
     echo 收作物
+    Start-Sleep -Seconds 2
 
     .\adb shell input tap 537 1525
-    
     echo 升级收阳光
     Start-Sleep -Seconds 1
 
@@ -90,4 +79,18 @@ if ( "$private:result" -ne "" ) {
         Start-Sleep -Seconds 1
         getSunShine
     }
+}
+
+.\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+.\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\taobao_farm.png 600 1106 | findstr Matched
+if ( "$private:result" -ne "" ) {
+    $private:result = "$private:result".Split(" ")
+    $private:x = [int]$private:result[1] + 60
+    $private:y = [int]$private:result[2] + 60
+    .\adb shell input tap $private:x $private:y
+    echo 天猫农场
+    Start-Sleep -Seconds 10
+
+    doInFarm
 }
