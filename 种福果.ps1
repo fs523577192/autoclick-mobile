@@ -68,7 +68,7 @@ if ( "$private:result" -ne "" ) {
     for ($private:i = 10; $private:i -gt 0; $private:i -= 1) {
         .\adb shell input tap 540 1676
         echo 浇水
-        Start-Sleep -Seconds 2
+        Start-Sleep -Seconds 1
     }
     .\adb shell input keyevent 4
     echo 返回

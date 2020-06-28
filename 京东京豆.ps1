@@ -56,51 +56,41 @@ Start-Sleep -Seconds 5
 .\adb shell input tap 551 1370
 echo 我知道了
 Start-Sleep -Seconds 5
-for ($i = 0; $i -lt 10; $i += 1) {
-    .\adb shell input tap 908 1651
-    echo 浇水
-    Start-Sleep -Seconds 10
-}
-.\adb shell input keyevent 4
-echo 返回
-Start-Sleep -Seconds 5
 
-.\adb shell input tap 360 1680
-echo 关注任务
-Start-Sleep -Seconds 5
-.\adb shell input tap 440 1390
-echo 关注商品
-Start-Sleep -Seconds 10
-
-function tapHeart {
+for ($private:i = 3; $private:i -gt 0; $private:i -= 1) {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_heart.png 920 1194 | findstr Matched
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_fruit_view.png 816 1002 | findstr Matched
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 40
-        $private:y = [int]$private:result[2] + 40
+        $private:x = [int]$private:result[1] + 62
+        $private:y = [int]$private:result[2] + 22
         .\adb shell input tap $private:x $private:y
-        echo 取消关注
+        echo 去逛逛
+        Start-Sleep -Seconds 15
+        .\adb shell input keyevent 4
+        echo 返回
+        Start-Sleep -Seconds 2
+        .\adb shell input tap $private:x $private:y
+        echo 领水滴
+        Start-Sleep -Seconds 2
     }
 }
 
-for ($i = 0; $i -lt 6; $i += 1) {
-    .\adb shell input tap 830 1490
-    echo 关注商品
-    Start-Sleep -Seconds 10
-    tapHeart
+.\adb shell input tap 1023 817
+echo 关闭“领水滴”
+Start-Sleep -Seconds 1
+
+for ($i = 0; $i -lt 10; $i += 1) {
+    .\adb shell input tap 908 1651
+    echo 浇水
     Start-Sleep -Seconds 5
-    .\adb shell input keyevent 4
-    echo 返回
-    Start-Sleep -Seconds 2
-    .\adb shell input swipe 830 1490 240 1490 500
-    echo 右划
-    Start-Sleep -Seconds 2
 }
 .\adb shell input keyevent 4
 echo 返回
 Start-Sleep -Seconds 5
+
+
 
 .\adb shell input tap 738 1678
 echo 逛逛会场
@@ -118,84 +108,9 @@ if ( "$private:result" -ne "" ) {
 echo 返回
 Start-Sleep -Seconds 5
 
-.\adb shell input tap 360 1680
-echo 关注任务
-Start-Sleep -Seconds 5
-.\adb shell input tap 236 1390
-echo 关注店铺
-Start-Sleep -Seconds 15
 
-$script:bottleCount=4
-function gotBottle {
-    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_got_bottle.png 341 704 | findstr Matched
-    if ( "$private:result" -ne "" ) {
-        echo 找到营养液
-        $script:bottleCount-=1
-    }
-}
-function tapStore {
-    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_enter_favor.png 100 679 | findstr Matched
-    echo $private:result
-    if ( "$private:result" -ne "" ) {
-        $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 102
-        $private:y = [int]$private:result[2] + 37
-        .\adb shell input tap $private:x $private:y
-        echo 进店并关注
-    } else {
-        $script:bottleCount=0
-        echo 无法进店
-    }
-}
-while ($script:bottleCount -gt 0) {
-    tapStore
-    if ($script:bottleCount -le 0) {
-        break
-    }
-    Start-Sleep -Seconds 15
-    gotBottle
-    .\adb shell input tap 1006 146
-    Start-Sleep -Seconds 2
-    .\adb shell input tap 960 293
-    echo 取消关注
-    Start-Sleep -Seconds 5
-    .\adb shell input keyevent 4
-    echo 返回
-    Start-Sleep -Seconds 5
-}
-#for ($i = 0; $i -lt 3; $i += 1) {
-#    $x = 206 + $i * 336
-#    .\adb shell input tap $x 720
-#    # 关注店铺
-#    Start-Sleep -Seconds 15
-#    .\adb shell input tap 1006 146
-#    Start-Sleep -Seconds 2
-#    .\adb shell input tap 960 293
-#    # 取消关注
-#    Start-Sleep -Seconds 5
-#    .\adb shell input keyevent 4
-#    # 返回
-#    Start-Sleep -Seconds 5
-#
-#    .\adb shell input tap $x 1078
-#    # 关注店铺
-#    Start-Sleep -Seconds 15
-#    .\adb shell input tap 1006 146
-#    Start-Sleep -Seconds 2
-#    .\adb shell input tap 960 293
-#    # 取消关注
-#    Start-Sleep -Seconds 5
-#    .\adb shell input keyevent 4
-#    # 返回
-#    Start-Sleep -Seconds 5
-#}
-# 返回
-.\adb shell input keyevent 4
-Start-Sleep -Seconds 5
+.\京豆-商品.ps1
+.\京豆-店铺.ps1
 
 .\adb shell input tap 562 1468
 echo 浇培养液

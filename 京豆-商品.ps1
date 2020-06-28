@@ -14,10 +14,19 @@ function tapHeart {
     $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_heart.png 920 1194 | findstr Matched
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 40
-        $private:y = [int]$private:result[2] + 40
+        $private:x = [int]$private:result[1] + 30
+        $private:y = [int]$private:result[2] + 30
         .\adb shell input tap $private:x $private:y
         echo 取消关注
+    } else {
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_heart1.png 920 1194 | findstr Matched
+        if ( "$private:result" -ne "" ) {
+            $private:result = "$private:result".Split(" ")
+            $private:x = [int]$private:result[1] + 30
+            $private:y = [int]$private:result[2] + 30
+            .\adb shell input tap $private:x $private:y
+            echo 取消关注
+        }
     }
 }
 
