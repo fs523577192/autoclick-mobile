@@ -56,7 +56,7 @@ function doInFarm {
     echo 升级收阳光
     Start-Sleep -Seconds 1
 
-    getSumShine
+    getSunShine
 
     #.\adb shell input tap 76 1207
     .\adb shell input tap 983 1554

@@ -179,6 +179,10 @@ for ($private:i = 0; $private:i -lt 4; $private:i += 1) {
 
 # 请先准备好“金果摇钱树”任务页面
 for ($private:i = 0; $private:i -lt 7; $private:i += 1) {
+    .\adb shell input tap 103 1153
+    echo 任务
+    Start-Sleep -Seconds 4
+
     #.\adb shell input tap 908 1600
     .\adb shell input tap 908 1500
     echo 去浏览
@@ -205,9 +209,5 @@ for ($private:i = 0; $private:i -lt 7; $private:i += 1) {
         echo 无法找到任务按钮
         break
     }
-
     Start-Sleep -Seconds 5
-    .\adb shell input tap 103 1153
-    echo 任务
-    Start-Sleep -Seconds 4
 }

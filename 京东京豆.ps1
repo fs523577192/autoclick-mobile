@@ -57,7 +57,7 @@ Start-Sleep -Seconds 5
 echo 我知道了
 Start-Sleep -Seconds 5
 
-for ($private:i = 3; $private:i -gt 0; $private:i -= 1) {
+for ($private:i = 4; $private:i -gt 0; $private:i -= 1) {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
     $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_fruit_view.png 816 1002 | findstr Matched
@@ -70,7 +70,18 @@ for ($private:i = 3; $private:i -gt 0; $private:i -= 1) {
         Start-Sleep -Seconds 15
         .\adb shell input keyevent 4
         echo 返回
-        Start-Sleep -Seconds 2
+        Start-Sleep -Seconds 3
+        .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_fruit_get.png 404 1529 | findstr Matched
+        if ( "$private:result" -ne "" ) {
+            $private:result = "$private:result".Split(" ")
+            $private:x = [int]$private:result[1] + 125
+            $private:y = [int]$private:result[2] + 34
+            .\adb shell input tap $private:x $private:y
+            echo 立刻领取
+            Start-Sleep -Seconds 2
+        }
         .\adb shell input tap $private:x $private:y
         echo 领水滴
         Start-Sleep -Seconds 2
@@ -115,3 +126,15 @@ Start-Sleep -Seconds 5
 .\adb shell input tap 562 1468
 echo 浇培养液
 Start-Sleep -Seconds 5
+
+
+# 宠汪汪
+for ($private:i = 9; $private:i -gt 0; $private:i -= 1) {
+    .\adb shell input tap 896 1867
+    echo 逛逛会场
+    Start-Sleep -Seconds 15
+
+    .\adb shell input keyevent 4
+    echo 返回
+    Start-Sleep -Seconds 5
+}

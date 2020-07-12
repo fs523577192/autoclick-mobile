@@ -11,33 +11,36 @@ Start-Sleep -Seconds 2
 .\adb shell input tap 967 1099
 echo 领水滴
 Start-Sleep -Seconds 2
-.\adb shell input tap 918 884
-echo 签到
-Start-Sleep -Seconds 2
+#.\adb shell input tap 918 884
+#echo 签到
+#Start-Sleep -Seconds 2
 
-.\adb shell input tap 918 1100
+.\adb shell input tap 918 1433
 echo 逛指定商品
-Start-Sleep -Seconds 16
+Start-Sleep -Seconds 20
 .\adb shell input keyevent 4
 echo 返回
 Start-Sleep -Seconds 2
 
-.\adb shell input tap 918 1308
+.\adb shell input tap 918 1644
 echo 逛精选好货
-Start-Sleep -Seconds 18
+Start-Sleep -Seconds 20
 .\adb shell input keyevent 4
 echo 返回
 Start-Sleep -Seconds 2
 
-.\adb shell input tap 918 1525
+.\adb shell input tap 918 1853
 echo 逛高抵扣
 Start-Sleep -Seconds 15
 .\adb shell input keyevent 4
 echo 返回
 Start-Sleep -Seconds 2
 
-#.\adb shell input tap 918 1737
-.\adb shell input tap 918 1525
+.\adb shell input tap 918 1066
+echo 一键领取
+Start-Sleep -Seconds 2
+
+.\adb shell input tap 918 1644
 echo 逛福果
 Start-Sleep -Seconds 8
 .\种福果.ps1
