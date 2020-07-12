@@ -71,14 +71,15 @@ for ($private:i = 4; $private:i -gt 0; $private:i -= 1) {
         .\adb shell input keyevent 4
         echo 返回
         Start-Sleep -Seconds 3
+
         .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
         .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
         $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_fruit_get.png 404 1529 | findstr Matched
         if ( "$private:result" -ne "" ) {
             $private:result = "$private:result".Split(" ")
-            $private:x = [int]$private:result[1] + 125
-            $private:y = [int]$private:result[2] + 34
-            .\adb shell input tap $private:x $private:y
+            $private:xx = [int]$private:result[1] + 125
+            $private:yy = [int]$private:result[2] + 34
+            .\adb shell input tap $private:xx $private:yy
             echo 立刻领取
             Start-Sleep -Seconds 2
         }
