@@ -130,7 +130,7 @@ Start-Sleep -Seconds 5
 
 
 # 宠汪汪
-for ($private:i = 9; $private:i -gt 0; $private:i -= 1) {
+for ($private:i = 13; $private:i -gt 0; $private:i -= 1) {
     .\adb shell input tap 896 1867
     echo 逛逛会场
     Start-Sleep -Seconds 15
