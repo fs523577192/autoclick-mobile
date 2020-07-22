@@ -4,42 +4,37 @@ cd D:\adb
 
 .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
 .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_can_get.png 103 251 981 282 | findstr Matched
-echo $private:result
-if ( "$private:result" -ne "" ) {
-    $private:result = "$private:result".Split(" ")
-    $private:x = [int]$private:result[1] + 0
-    $private:y = [int]$private:result[2] + 60
-    .\adb shell input tap $private:x $private:y
-    echo 可领京豆
-    Start-Sleep -Seconds 2
-
-    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_got.png 877 599 970 949 | findstr Matched
+for ($private:i = 1; $private:i -le 4; $private:i += 1) {
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_can_get$private:i.png 103 251 1080 397 | findstr Matched
     echo $private:result
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 25
-        $private:y = [int]$private:result[2] + 25
+        $private:x = [int]$private:result[1] + 0
+        $private:y = [int]$private:result[2] + 60
         .\adb shell input tap $private:x $private:y
-        echo 签到成功
+        echo 可领京豆
         Start-Sleep -Seconds 2
-    } else {
-        echo 无法关闭签到成功提示
+
+        .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_got.png 877 599 970 949 | findstr Matched
+        echo $private:result
+        if ( "$private:result" -ne "" ) {
+            $private:result = "$private:result".Split(" ")
+            $private:x = [int]$private:result[1] + 25
+            $private:y = [int]$private:result[2] + 25
+            .\adb shell input tap $private:x $private:y
+            echo 签到成功
+            Start-Sleep -Seconds 2
+        } else {
+            echo 无法关闭签到成功提示
+        }
+        break;
     }
-} else {
+}
+if ($private:i -ge 5) {
     echo 无法领京豆
 }
-
-.\adb shell input swipe 536 1592 543 358 1000
-.\adb shell input swipe 536 1592 543 1258 1000
-
-# 请先准备好每日签到页面
-.\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-.\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_sign.png 374 730 726 1100 | findstr Matched
-echo $private:result
 
 function waitFinish {
     for ($private:j = 0; $private:j -lt 13; $private:j += 1) {
@@ -170,6 +165,12 @@ for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
         Start-Sleep -Seconds 2
     }
 }
+
+# 请先准备好每日签到页面
+.\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+.\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_sign.png 374 730 726 1100 | findstr Matched
+echo $private:result
 
 if ( "$private:result" -ne "" ) {
     $private:result = "$private:result".Split(" ")

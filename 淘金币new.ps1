@@ -33,7 +33,7 @@ for ($private:i = 0; $private:i -lt 4; $private:i += 1) {
             $private:y = [int]$private:result[2] + 18
             .\adb shell input tap $private:x $private:y
             echo 去浏览
-            Start-Sleep -Seconds 25
+            Start-Sleep -Seconds 45
             .\adb shell input keyevent 4
             echo 返回
             Start-Sleep -Seconds 3
