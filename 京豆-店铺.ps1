@@ -3,7 +3,7 @@
 
 .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
 .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_bean_shop.png 602 1381 | findstr Matched
+$private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_bean_shop.png 270 1381 | findstr Matched
 echo $private:result
 if ( "$private:result" -ne "" ) {
     $private:result = "$private:result".Split(" ")

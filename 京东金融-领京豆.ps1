@@ -53,16 +53,56 @@ function waitFinish {
 }
 
 function swipe {
-    .\adb shell input swipe 543 258 536 1592 300
-    .\adb shell input swipe 543 258 536 1592 300
-    .\adb shell input swipe 543 258 536 1592 300
-    .\adb shell input swipe 543 258 536 1592 300
-    .\adb shell input swipe 536 1592 543 258 1000
-    .\adb shell input swipe 536 1592 543 700 1000
+    for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
+        .\adb shell input swipe 543 258 536 1592 300
+        Start-Sleep -Seconds 1
+    }
+
+    for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
+        .\adb shell input swipe 536 1515 543 350 1200
+        Start-Sleep -Seconds 1
+    }
 }
 
-for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
-    swipe
+function getAndRefresh {
+    for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
+        .\adb shell input swipe 543 258 536 1592 300
+        Start-Sleep -Seconds 1
+    }
+
+    for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
+        .\adb shell input swipe 536 1590 543 300 1200
+        Start-Sleep -Seconds 1
+
+        .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_get.png 760 240 936 1320 | findstr Matched
+        echo $private:result
+        if ( "$private:result" -ne "" ) {
+            $private:result = "$private:result".Split(" ")
+            $private:x = [int]$private:result[1] + 20
+            $private:y = [int]$private:result[2] + 10
+            .\adb shell input tap $private:x $private:y
+            echo 领取奖励
+            Start-Sleep -Seconds 3
+
+            .\adb shell input tap 1014 157
+            echo 菜单
+            Start-Sleep -Seconds 3
+
+            .\adb shell input tap 332 1428
+            echo 刷新
+            Start-Sleep -Seconds 8
+
+            swipe
+            break
+        }
+    }
+}
+
+for ($private:i = 0; $private:i -lt 12; $private:i += 1) {
+    getAndRefresh
+
     Start-Sleep -Seconds 2
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
@@ -71,7 +111,7 @@ for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
         $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
+        $private:y = [int]$private:result[2]
         .\adb shell input tap $private:x $private:y
         echo 去浏览
         waitFinish
@@ -86,77 +126,7 @@ for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
         $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
-        .\adb shell input tap $private:x $private:y
-        echo 去浏览
-        waitFinish
-        .\adb shell input keyevent 4
-        echo 返回
-        Start-Sleep -Seconds 2
-    }
-}
-
-for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
-    swipe
-    Start-Sleep -Seconds 2
-    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_view1.png 807 240 936 1308 | findstr Matched
-    echo $private:result
-    if ( "$private:result" -ne "" ) {
-        $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
-        .\adb shell input tap $private:x $private:y
-        echo 去浏览
-        waitFinish
-        .\adb shell input keyevent 4
-        echo 返回
-        Start-Sleep -Seconds 2
-        continue
-    }
-
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_view2.png 807 240 936 1308 | findstr Matched
-    echo $private:result
-    if ( "$private:result" -ne "" ) {
-        $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
-        .\adb shell input tap $private:x $private:y
-        echo 去浏览
-        waitFinish
-        .\adb shell input keyevent 4
-        echo 返回
-        Start-Sleep -Seconds 2
-    }
-}
-
-for ($private:i = 0; $private:i -lt 3; $private:i += 1) {
-    swipe
-    Start-Sleep -Seconds 2
-    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_view1.png 807 240 936 1308 | findstr Matched
-    echo $private:result
-    if ( "$private:result" -ne "" ) {
-        $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
-        .\adb shell input tap $private:x $private:y
-        echo 去浏览
-        waitFinish
-        .\adb shell input keyevent 4
-        echo 返回
-        Start-Sleep -Seconds 2
-        continue
-    }
-
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_to_view2.png 807 240 936 1308 | findstr Matched
-    echo $private:result
-    if ( "$private:result" -ne "" ) {
-        $private:result = "$private:result".Split(" ")
-        $private:x = [int]$private:result[1] + 20
-        $private:y = [int]$private:result[2] + 1
+        $private:y = [int]$private:result[2]
         .\adb shell input tap $private:x $private:y
         echo 去浏览
         waitFinish
@@ -214,10 +184,21 @@ for ($private:i = 0; $private:i -lt 4; $private:i += 1) {
 }
 
 # 请先准备好“金果摇钱树”任务页面
-for ($private:i = 0; $private:i -lt 7; $private:i += 1) {
+for ($private:i = 0; $private:i -lt 16; $private:i += 1) {
     .\adb shell input tap 103 1153
     echo 任务
     Start-Sleep -Seconds 4
+    
+    .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
+    .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_fruit_get.png 830 1000 970 1480 | findstr Matched
+    echo $private:result
+    if ( "$private:result" -ne "" ) {
+        .\adb shell input tap 908 1500
+        echo 领取
+        Start-Sleep -Seconds 8
+        continue
+    }
 
     #.\adb shell input tap 908 1600
     .\adb shell input tap 908 1500
@@ -226,11 +207,11 @@ for ($private:i = 0; $private:i -lt 7; $private:i += 1) {
 
     .\adb shell input keyevent 4
     echo 返回
-    Start-Sleep -Seconds 6
+    Start-Sleep -Seconds 8
 
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_fruit_task.png 30 1066 196 1428 | findstr Matched
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_fruit_task.png 30 1000 196 1428 | findstr Matched
     echo $private:result
     if ( "$private:result" -eq "" ) {
         .\adb shell input keyevent 4
@@ -239,9 +220,9 @@ for ($private:i = 0; $private:i -lt 7; $private:i += 1) {
     }
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_fruit_task.png 30 1366 196 1428 | findstr Matched
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jdf_fruit_task.png 30 1000 196 1428 | findstr Matched
     echo $private:result
-    if ( "$private:result" -ne "" ) {
+    if ( "$private:result" -eq "" ) {
         echo 无法找到任务按钮
         break
     }

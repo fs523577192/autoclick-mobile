@@ -43,16 +43,31 @@ for ($private:i = 3; $private:i -gt 0; $private:i -= 1) {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
     $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\tb_fuguo_view.png 821 812 | findstr Matched
+    echo $private:result
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
         $private:x = [int]$private:result[1] + 62
         $private:y = [int]$private:result[2] + 22
         .\adb shell input tap $private:x $private:y
         echo 逛精选商品
-        Start-Sleep -Seconds 18
+        Start-Sleep -Seconds 30
         .\adb shell input keyevent 4
         echo 返回
         Start-Sleep -Seconds 1
+    } else {
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\tb_fuguo_view1.png 821 812 | findstr Matched
+        echo $private:result
+        if ( "$private:result" -ne "" ) {
+            $private:result = "$private:result".Split(" ")
+            $private:x = [int]$private:result[1] + 62
+            $private:y = [int]$private:result[2] + 22
+            .\adb shell input tap $private:x $private:y
+            echo 逛精选商品
+            Start-Sleep -Seconds 30
+            .\adb shell input keyevent 4
+            echo 返回
+            Start-Sleep -Seconds 1
+        }
     }
 }
 
@@ -65,7 +80,7 @@ if ( "$private:result" -ne "" ) {
     $private:x = [int]$private:result[1] + 56
     $private:y = [int]$private:result[2] + 56
     .\adb shell input tap $private:x $private:y
-    for ($private:i = 10; $private:i -gt 0; $private:i -= 1) {
+    for ($private:i = 19; $private:i -gt 0; $private:i -= 1) {
         .\adb shell input tap 540 1676
         echo 浇水
         Start-Sleep -Seconds 1
