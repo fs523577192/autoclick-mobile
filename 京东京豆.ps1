@@ -169,7 +169,12 @@ for ($private:i = 13; $private:i -gt 0; $private:i -= 1) {
         Start-Sleep -Seconds 2
     }
 
-    .\adb shell input keyevent 4
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\jd_xiaowo.png 431 115 647 178 | findstr Matched
+    if ( "$private:result" -ne "" ) {
+        .\adb shell input tap 199 147
+    } else {
+        .\adb shell input keyevent 4
+    }
     echo 返回
     Start-Sleep -Seconds 5
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
