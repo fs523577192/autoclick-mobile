@@ -14,18 +14,18 @@ function receive {
 }
 
 function clearUseless {
-    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_shengqian.png 200 850 502 1920 976 128
-    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_tianmao.png 200 850 502 1920 976 128
-    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_maochao.png 200 850 502 1920 976 128
-    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_huafei.png 200 850 502 1920 976 128
-    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_duobao.png 200 850 502 1920 976 128
+    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_shengqian.png 200 800 602 1920 976 128
+    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_tianmao.png 200 800 502 1920 976 128
+    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_maochao.png 200 800 502 1920 976 128
+    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_huafei.png 200 800 502 1920 976 128
+    java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  clearMatch  D:\adb\adb_cap.png  D:\adb\tb_tjb_duobao.png 200 800 502 1920 976 128
 }
 
 function needSwipe {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
-    for ($private:i = 1; $private:i -le 5; $private:i += 1) {
-        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  "D:\adb\tjb_need_swipe$private:i.png" 301 90 782 150 | findstr Matched
+    for ($private:i = 1; $private:i -le 6; $private:i += 1) {
+        $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  "D:\adb\tjb_need_swipe$private:i.png" 101 90 782 190 | findstr Matched
         if ("$private:result" -ne "") {
             1 -eq 1
             return
@@ -38,7 +38,7 @@ for ($private:i = 0; $private:i -lt 27; $private:i += 1) {
     .\adb shell screencap -p /storage/self/primary/DCIM/Screenshots/adb_cap.png
     .\adb pull /storage/self/primary/DCIM/Screenshots/adb_cap.png
     clearUseless
-    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\tb_tjb_view1.png 839 883 | findstr Matched
+    $private:result=java -cp F:\java\screenShotAnalyzer\out\production\screenShotAnalyzer\ org.firas.tool.ssa.Main  match  D:\adb\adb_cap.png  D:\adb\tb_tjb_view1.png 800 883 | findstr Matched
     echo $private:result
     if ( "$private:result" -ne "" ) {
         $private:result = "$private:result".Split(" ")
@@ -53,7 +53,7 @@ for ($private:i = 0; $private:i -lt 27; $private:i += 1) {
             .\adb shell input swipe 536 1600 543 200 10000
             .\adb shell input swipe 536 1600 543 200 10000
         } else {
-            Start-Sleep -Seconds 20
+            Start-Sleep -Seconds 18
         }
         goBack
 
